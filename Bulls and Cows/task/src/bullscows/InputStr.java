@@ -10,43 +10,30 @@ public class InputStr {
         scanner = new Scanner(System.in);
     }
 
-    public int readCount() {
-        int count;
-        do {
-            System.out.println("Input the length of the secret code:");
-            try {
-                count = Integer.parseInt(scanner.nextLine());
-            } catch (InputMismatchException e) {
-                continue;
-            }
+    private int readInt() {
+        int count = -1;
+            String str = scanner.nextLine();
+            if (!str.matches("[0-9]*"))
+                System.out.println("Error: \"" + str + "\" isn't a valid number.");
+            else
+                count = Integer.parseInt(str);
+        return count;
+    }
 
-            if (count > 36) {
-                System.out.println("Error: can't generate a secret number with " +
-                        "a length of " + count + " because there aren't enough unique digits.");
-                continue;
-            }
-            break;
-        } while (true);
+    public int readCount() {
+        System.out.println("Input the length of the secret code:");
+        int count = readInt();
+        if (count > 36)
+            System.out.println("Error: can't generate a secret number with " +
+                    "a length of " + count + " because there aren't enough unique digits.");
         return count;
     }
 
     public int readPossible() {
-        int count = -1;
-        do {
-            System.out.println("Input the number of possible symbols in the code:");
-            try {
-                count = Integer.parseInt(scanner.nextLine());
-            } catch (NumberFormatException e) {
-                e.printStackTrace();
-            }
-
-            if (count > 36) {
-                System.out.println("Error: can't generate a secret number with " +
-                        count + " numbers variable. because we can only 0-9, a-z.");
-                continue;
-            }
-            break;
-        } while (true);
+        System.out.println("Input the number of possible symbols in the code:");
+        int count = readInt();
+        if (count > 36)
+            System.out.println("Error: maximum number of possible symbols in the code is 36 (0-9, a-z).");
         return count;
     }
 
@@ -63,7 +50,7 @@ public class InputStr {
                     answer = "";
                 }
             } catch (InputMismatchException e) {
-                System.out.println(e);
+                e.printStackTrace();
             }
         } else {
             System.out.println("Exiting by end of scanner");

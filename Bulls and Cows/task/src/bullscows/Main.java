@@ -8,23 +8,28 @@ public class Main {
         InputStr inputStr = new InputStr();
 
         int lengthCode = inputStr.readCount();
+        if (lengthCode < 0) return;
         int possibleElements = inputStr.readPossible();
-        char[] secretCode = SecretCode.generate(lengthCode, possibleElements);
 
-        assert secretCode != null;
-        System.out.println("secret code = " + String.valueOf(secretCode));
-        System.out.println("Okay, let's start a game!");
+        if (possibleElements <= 36 && lengthCode <= possibleElements && lengthCode > 0) {
+            char[] secretCode = SecretCode.generate(lengthCode, possibleElements);
 
-        int counter = 0;
-        do {
-            counter++;
-            System.out.println("Turn " + counter + ". Answer:");
-            String str = Checker.checkBulls(inputStr.nextAnswer(lengthCode), secretCode);
-            if (str == null) break;
+            assert secretCode != null;
+            System.out.println("secret code = " + String.valueOf(secretCode));
+            System.out.println("Okay, let's start a game!");
 
-            System.out.println("Grade: " + str + ".\n");
+            int counter = 0;
+            do {
+                counter++;
+                System.out.println("Turn " + counter + ". Answer:");
+                String str = Checker.checkBulls(inputStr.nextAnswer(lengthCode), secretCode);
+                if (str == null) break;
 
-        } while (!exit);
-        if (exit) System.out.println("Congratulations! You guessed the secret code.");
+                System.out.println("Grade: " + str + ".\n");
+
+            } while (!exit);
+            if (exit) System.out.println("Congratulations! You guessed the secret code.");
+        }
+        else System.out.println("Error");
     }
 }

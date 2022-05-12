@@ -8,11 +8,12 @@ public class SecretCode {
 
     public static char[] generate(int lengthCode, int possibleSymbols) {
         if (lengthCode < 1 || possibleSymbols < 2) {
-            System.out.println("Маловато будет.");
+            System.out.println("Error: Маловато будет.");
             return null;
         }
         if (lengthCode > possibleSymbols) {
-            System.out.println("Слишком мало разрешенных символов для создания секретного ключа.");
+            System.out.println("Error: it's not possible to generate a code with a length of " +
+                    lengthCode + " with " + possibleSymbols + " unique symbols.");
             return null;
         }
 
